@@ -67,6 +67,29 @@ require("lazy").setup({
 },
 
 {
+  "rachartier/tiny-inline-diagnostic.nvim",
+  event = "VeryLazy",
+  config = function()
+    -- Disable default inline diagnostics
+    vim.diagnostic.config({
+      virtual_text = false,
+    })
+
+    require("tiny-inline-diagnostic").setup({
+      preset = "modern", -- try: "classic", "minimal", etc
+      options = {
+        show_source = {
+          enabled = true,
+        },
+      },
+      multilines = {
+        enabled = true,
+      },
+    })
+  end,
+},
+
+{
   "williamboman/mason.nvim",
   config = function()
     require("mason").setup()
