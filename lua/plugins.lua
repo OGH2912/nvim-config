@@ -135,6 +135,40 @@ require("lazy").setup({
 },
 
 {
+  "jay-babu/mason-null-ls.nvim",
+  dependencies = {
+    "williamboman/mason.nvim",
+    "nvimtools/none-ls.nvim",
+  },
+  config = function()
+    require("mason-null-ls").setup({
+      ensure_installed = {
+        "stylua",
+        "prettier",
+      },
+      automatic_installation = true,
+    })
+  end,
+},
+
+{
+  "nvimtools/none-ls.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "jay-babu/mason-null-ls.nvim",
+  },
+  config = function()
+    local null_ls = require("null-ls")
+
+    null_ls.setup({
+      sources = {
+        null_ls.builtins.diagnostics.perlcritic,
+      },
+  })
+  end,
+},
+
+{
   "hrsh7th/nvim-cmp",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
