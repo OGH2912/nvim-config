@@ -27,8 +27,8 @@ vim.keymap.set("n", "<leader>ss", ":AutoSession save<CR>")
 vim.keymap.set("n", "<leader>sr", ":AutoSession restore<CR>")
 vim.keymap.set("n", "<leader>sd", ":AutoSession delete<CR>")
 
-vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>", { silent = true })   -- next buffer
-vim.keymap.set("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { silent = true }) -- previous buffer
-vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { silent = true })          -- close current buffer
-vim.keymap.set("n", "<leader>bp", ":BufferLinePick<CR>", { silent = true })   -- pick buffer visually
-
+vim.keymap.set("n", "<leader>q", ":bdelete<CR>")     -- close current buffer
+vim.keymap.set("n", "=", ":BufferLineCycleNext<CR>") -- next buffer
+vim.keymap.set("n", "-", ":BufferLineCyclePrev<CR>") -- previous buffer
+vim.keymap.set("n", "+", ":BufferLineMoveNext<CR>")  -- move buffer right
+vim.keymap.set("n", "_", ":BufferLineMovePrev<CR>")  -- move buffer left
