@@ -97,18 +97,41 @@ require("lazy").setup({
 },
 
 {
+  "williamboman/mason-lspconfig.nvim",
+  dependencies = {
+    "williamboman/mason.nvim",
+  },
+  config = function()
+    require("mason-lspconfig").setup({
+      ensure_installed = {
+        "gopls",
+        "perlnavigator",
+        "intelephense",
+        "jsonls",
+        "yamlls",
+        "lua_ls",
+      },
+      automatic_installation = true,
+    })
+  end,
+},
+
+{
   "neovim/nvim-lspconfig",
-  dependencies = { "hrsh7th/cmp-nvim-lsp" },
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "williamboman/mason-lspconfig.nvim",
+  },
   config = function()
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local servers = require("mason-lspconfig").get_installed_servers()
 
-    vim.lsp.enable("gopls", { capabilities = capabilities })
-    vim.lsp.enable("intelephense", { capabilities = capabilities })
-    vim.lsp.enable("perlnavigator", { capabilities = capabilities })
-    vim.lsp.enable("jsonls", { capabilities = capabilities })
-    vim.lsp.enable("yamlls", { capabilities = capabilities })
-    vim.lsp.enable("luals", { capabilities = capabilities })
-  end
+    for _, server in ipairs(servers) do
+      vim.lsp.enable(server, {
+        capabilities = capabilities,
+      })
+    end
+  end,
 },
 
 {
@@ -124,10 +147,6 @@ require("lazy").setup({
     cmp.setup({
       completion = {
         autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged }
-      },
-
-      experimental = {
-        ghost_text = true,
       },
 
       window = {
@@ -183,7 +202,6 @@ require("lazy").setup({
       auto_restore = false,
       auto_save = true,
       auto_create = false,
-        
       session_lens = {
         load_on_setup = true,
         previewer = "active_buffer"
@@ -197,13 +215,6 @@ require("lazy").setup({
   config = function()
     local alpha = require("alpha")
     local dashboard = require("alpha.themes.dashboard")
-
-    local function create_session()
-      local name = vim.fn.input("Session name: ")
-      if name ~= "" then
-        vim.cmd("AutoSession save " .. name)
-      end
-    end
 
     dashboard.section.buttons.val = {
       dashboard.button("n", "New Session", function()
