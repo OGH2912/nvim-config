@@ -8,6 +8,8 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 250
+vim.opt.spell = true
+vim.opt.spelllang = {"en_gb"}
 
 -- set indentation options
 vim.opt.tabstop = 4        -- Number of spaces in a <Tab>

@@ -76,7 +76,7 @@ require("lazy").setup({
     })
 
     require("tiny-inline-diagnostic").setup({
-      preset = "modern", -- try: "classic", "minimal", etc
+      preset = "modern",
       options = {
         show_source = {
           enabled = true,
@@ -163,6 +163,7 @@ require("lazy").setup({
     null_ls.setup({
       sources = {
         null_ls.builtins.diagnostics.perlcritic,
+        null_ls.builtins.completion.spell,
       },
   })
   end,
@@ -174,6 +175,7 @@ require("lazy").setup({
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
+    "f3fora/cmp-spell",
   },
   config = function()
     local cmp = require("cmp")
@@ -190,20 +192,29 @@ require("lazy").setup({
 
       mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+        ["<Esc>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.abort()
+          else
+            fallback()
+          end
+        end),
       }),
 
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "path" },
         { name = "buffer" },
+        { name = "spell" },
       }),
 
       formatting = {
         format = function(entry, vim_item)
           vim_item.menu = ({
-            buffer = "[Buf]",
+            buffer   = "[Buf]",
             nvim_lsp = "[LSP]",
-            path = "[Path]",
+            path     = "[Path]",
+            spell    = "[Spell]",
           })[entry.source.name]
           return vim_item
         end,
