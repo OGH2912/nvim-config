@@ -39,39 +39,6 @@ On launch, `lazy.nvim` will automatically install itself and the plugins defined
 
 ---
 
-## 📁 Project Structure
-
-```
-.
-├── init.lua
-├── lua
-│   ├── config
-│   │   ├── lazy.lua
-│   │   └── settings.lua
-│   └── plugins
-│       ├── alpha-nvim.lua
-│       ├── auto-session.lua
-│       ├── bufferline.lua
-│       ├── gitsigns.lua
-│       ├── lualine.lua
-│       ├── mason-lspconfig.lua
-│       ├── mason-null-ls.lua
-│       ├── mason.lua
-│       ├── none-ls.lua
-│       ├── nvim-cmp.lua
-│       ├── nvim-lspconfig.lua
-│       ├── nvim-osc52.lua
-│       ├── nvim-treesitter.lua
-│       ├── nvim-web-devicons.lua
-│       ├── telescope-file-browser.lua
-│       ├── telescope.lua
-│       ├── tiny-inline-diagnostic.lua
-│       └── tokyonight.lua
-└── README.md
-```
-
----
-
 ## 🔌 Plugins
 
 ### [alpha-nvim](https://github.com/goolord/alpha-nvim)
