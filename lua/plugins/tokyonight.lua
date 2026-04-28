@@ -1,11 +1,8 @@
 return {
-    "folke/tokyonight.nvim",
+    "sainnhe/everforest",
     config = function()
-        require("tokyonight").setup({
-            style = "night",
-        })
-
-        vim.cmd.colorscheme("tokyonight")
+        vim.opt.background = "dark"
+        vim.g.everforest_background = "hard"
+        vim.cmd.colorscheme("everforest")
     end
 }
-

@@ -6,12 +6,11 @@ return {
     config = function()
         require("mason-lspconfig").setup({
             ensure_installed = {
-                "gopls",
-                "perlnavigator",
                 "intelephense",
                 "jsonls",
                 "yamlls",
                 "lua_ls",
+                "pyright",
             },
             automatic_installation = true,
         })

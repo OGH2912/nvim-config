@@ -5,9 +5,12 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "f3fora/cmp-spell",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
     },
     config = function()
         local cmp = require("cmp")
+        local luasnip = require("luasnip")
 
         cmp.setup({
             completion = {
@@ -22,7 +25,15 @@ return {
             },
 
             mapping = cmp.mapping.preset.insert({
-                ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                    if luasnip.expandable() then
+                        luasnip.expand()
+                    elseif cmp.visible() then
+                        cmp.confirm({ select = true })
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
                 ["<Esc>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.abort()
@@ -32,7 +43,14 @@ return {
                 end),
             }),
 
+            snippet = {
+                expand = function(args)
+                    luasnip.lsp_expand(args.body)
+                end,
+            },
+
             sources = cmp.config.sources({
+                { name = "luasnip" },
                 { name = "nvim_lsp" },
                 { name = "path" },
                 { name = "buffer" },
@@ -42,6 +60,7 @@ return {
             formatting = {
                 format = function(entry, vim_item)
                     vim_item.menu = ({
+                        luasnip  = "[Snip]",
                         buffer   = "[Buf]",
                         nvim_lsp = "[LSP]",
                         path     = "[Path]",

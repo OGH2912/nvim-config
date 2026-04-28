@@ -16,7 +16,7 @@ return {
             },
         })
 
-        vim.keymap.set("n", "<BS>", ":bdelete<CR>")             -- close current buffer
+        vim.keymap.set("n", "<C-BS>", ":bdelete<CR>")            -- close current buffer
         vim.keymap.set("n", "=",    ":BufferLineCycleNext<CR>") -- next buffer
         vim.keymap.set("n", "-",    ":BufferLineCyclePrev<CR>") -- previous buffer
         vim.keymap.set("n", "+",    ":BufferLineMoveNext<CR>")  -- move buffer right
